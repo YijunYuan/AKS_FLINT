@@ -87,10 +87,10 @@ int AKS(fmpz_t n){
 }
 int main(){
     fmpz_t test;fmpz_init(test);
+    FILE *fp;fp=fopen("test.dat","w");
     for(fmpz_one(test);fmpz_cmp_ui(test,100000)<=0;fmpz_add_ui(test,test,1)){
-        printf("%d\n",AKS(test));
+        fprintf(fp,"%d\n",AKS(test));
     }
     fmpz_clear(test);
-    system("pause");
     return 0;
 }
