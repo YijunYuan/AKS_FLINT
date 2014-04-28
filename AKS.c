@@ -2,7 +2,6 @@
 #include<flint/fmpz.h>
 #include<flint/fmpz_mod_poly.h>
 #include<flint/arith.h>
-#include<mpir.h>
 #include<stdio.h>
 #include<math.h>
 void MULTIPLICATIVE_ORDER(fmpz_t out,fmpz_t n,fmpz_t k){
