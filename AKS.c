@@ -36,7 +36,7 @@ int AKS(fmpz_t n){
 	mpz_clear(k);
 	/*Step2*/
 	fmpz_t c,r;fmpz_init(c);fmpz_init(r);
-	fmpz_set_ui(c,floor(sqrt(fmpz_dlog(n))));//c=[sqrt(log(n))]
+	fmpz_set_d(c,sqrt(fmpz_dlog(n)));//c=[sqrt(log(n))]
     for(fmpz_set_ui(r,2);;fmpz_add_ui(r,r,1)){
         MULTIPLICATIVE_ORDER(temp1,r,n);
         if(fmpz_cmp(temp1,c)>0)break;
