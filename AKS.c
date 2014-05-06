@@ -3,6 +3,7 @@
 #include<flint/fmpz_mod_poly.h>
 #include<flint/arith.h>
 #include<math.h>
+#include<stdio.h>
 static __inline__ void MULTIPLICATIVE_ORDER(fmpz_t out,fmpz_t n,fmpz_t k){
     fmpz_gcd(out,n,k);
     if(!fmpz_equal_ui(out,1)){
@@ -45,7 +46,6 @@ int AKS(fmpz_t n){
             return 0;
         }
     }
-
     /*Step4*/
     if(fmpz_cmp(n,r)<=0){
             fmpz_clear(temp1);fmpz_clear(a);fmpz_clear(r);
@@ -54,7 +54,7 @@ int AKS(fmpz_t n){
     /*Step5*/
     fmpz_clear(temp1);
     arith_euler_phi(temp1,r);
-    c=ceil(sqrtl(fmpz_get_d(temp1))*fmpz_dlog(n));
+    c=ceil(sqrtl(fmpz_get_ui(temp1)))*log2l(fmpz_get_ui(n));//Recalculate c, thanks to Dana Jacobsen
     fmpz_mod_poly_t e1,e2;
     fmpz_mod_poly_init(e1,n);fmpz_mod_poly_init(e2,n);
     ulong n_ui=fmpz_get_ui(n);//Thanks to Denis Kryskov
@@ -66,6 +66,7 @@ int AKS(fmpz_t n){
     fmpz_mod_poly_set_coeff_ui(q     ,n_ui % r_ui, 1);//Thanks to Denis Kryskov,this modification really helps.
     fmpz_mod_poly_t modulo;fmpz_mod_poly_init(modulo,n);
     fmpz_mod_poly_set_coeff_ui(modulo,0             ,n_ui-1); //Thanks to Denis Kryskov
+    printf("%llu\n",c);
     fmpz_mod_poly_set_coeff_ui(modulo,r_ui          , 1);//Thanks to Denis Kryskov
     for(fmpz_one(a);fmpz_cmp_ui(a,c)<=0;fmpz_add_ui(a,a,1)){
         fmpz_mod_poly_set_coeff_fmpz(p   ,0             , a);
@@ -84,7 +85,7 @@ int AKS(fmpz_t n){
     return 1;
 }
 
-#include<stdio.h>
+
 int main(){
     fmpz_t test;fmpz_init(test);
     while(fmpz_read(test)){
