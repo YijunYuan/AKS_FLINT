@@ -22,12 +22,12 @@ static __inline__ void MULTIPLICATIVE_ORDER(fmpz_t out,fmpz_t n,fmpz_t k){
 int AKS(fmpz_t n){
     fmpz_t temp1;fmpz_init(temp1);
     /*Step1*/
-    mpz_t k;mpz_init(k);fmpz_get_mpz(k,n);
-    if(mpz_perfect_power_p(k)!=0){
-            fmpz_clear(temp1);mpz_clear(k);
+    mpz_t n_z;mpz_init(n_z);fmpz_get_mpz(n_z,n);
+    if(mpz_perfect_power_p(n_z)!=0){
+            fmpz_clear(temp1);mpz_clear(n_z);
             return 0;
     }
-    mpz_clear(k);
+    mpz_clear(n_z);
     /*Step2*/
     fmpz_t r;fmpz_init(r);
     ulong c;//rewrite c,change its type from fmpz to ulong
